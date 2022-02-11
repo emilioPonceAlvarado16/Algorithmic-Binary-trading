@@ -91,7 +91,7 @@ def mercadear(Iq,mercado, lista_binaria, indice): #cada hilo ejecutara esta func
             
                 
 
-print("get candles")
+print("get candles, waiting for the function is_time() ")
 
 
 try: 
