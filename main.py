@@ -13,15 +13,14 @@ import matplotlib.pyplot as plt
 from iqoptionapi.stable_api import IQ_Option
 # from iqoptionapi.support_resistance import support_and_resistance
 from datetime import datetime
-from example import portafolio
-#from iqoptionapi.strategies.example import portafolio
-#from example import portafolio
-from iqoptionapi.strategies.mhi2 import mhi
-from iqoptionapi.strategies.tendencia import tendencia
+import mhi
+import rainbow_strategy
+# from iqoptionapi.strategies.mhi2 import mhi
+# from iqoptionapi.strategies.tendencia import tendencia
 
 
 #user = userdata.mainUser
-Iq=IQ_Option("yourEmail","YourPassword")
+Iq=IQ_Option("YourUsername","YourPassword")
 check, reason = Iq.connect()
 
 MODE = "PRACTICE" # REAL
@@ -94,24 +93,30 @@ def mercadear(Iq,mercado, lista_binaria, indice): #cada hilo ejecutara esta func
 
 print("get candles")
 
+
 try: 
     while True:
-    	  #cada iteracion se crean y se destruyen hilos
+    	  #cada iteracion se crean y se destruyen hilos // New threads born and die in each iteration.
     	  
     	  num_mercados=len(mercados)
+         
     	  lista_binaria=[None]*num_mercados
-    	  hilos=[None]*num_mercados
+          
+
+          
+    	#   hilos=[None]*num_mercados
     	  
     	  if is_time():
         	   
             print('\n Analizando...')
             
             for i in range(num_mercados):
-              hilos[i]=Thread(target=mercadear, args=(Iq, mercados[i],lista_binaria,i))
-              hilos[i].start()  #empezar a ejecutar los hilos
+              mercadear(Iq, mercados[i], lista_binaria, i)
+            #   hilos[i]=Thread(target=mercadear, args=(Iq, mercados[i],lista_binaria,i))
+            #   hilos[i].start()  #empezar a ejecutar los hilos
             
-            for i in range(num_mercados):
-              hilos[i].join() #esperar a que terminen
+            # for i in range(num_mercados):
+            #   hilos[i].join() #esperar a que terminen
               
               #contar cuantas operaciones hicieron
             for operacion in lista_binaria:

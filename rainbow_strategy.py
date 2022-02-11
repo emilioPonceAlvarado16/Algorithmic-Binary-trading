@@ -9,8 +9,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from iqoptionapi.stable_api import IQ_Option
 from datetime import datetime
-from example import *
-import talib as ta
 import threading
 
 def order(signal,Iq,goal,expiration_mode,flag_order,contador):
